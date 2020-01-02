@@ -1,0 +1,28 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "Mean Stack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trillionsun/socialMedia.git"
+  },
+  "keywords": [
+    "MEAN",
+    "stack"
+  ],
+  "author": "Trillion",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trillionsun/socialMedia/issues"
+  },
+  "homepage": "https://github.com/trillionsun/socialMedia#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.8.3"
+  }
+}
