@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {HomeComponent} from "./component/home/home.component";
 import {DashboardComponent} from "./component/dashboard/dashboard.component";
+import {RegisterComponent} from "./component/register/register.component";
 
 const routes: Routes = [
   { path: '',
@@ -10,7 +11,10 @@ const routes: Routes = [
   { path: 'Dashboard',
     component: DashboardComponent,
   },
-  { path: '**', component: HomeComponent }
+  {path: 'Register', component: RegisterComponent},
+
+  { path: '**', component: HomeComponent },  // must be the last one
+
 ];
 
 @NgModule({
