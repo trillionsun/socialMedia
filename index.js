@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const router = express.Router();
+const cors = require('cors');
 
 
 
@@ -21,7 +22,14 @@ mongoose.connect(config.uri, (err)=> {
         }
     }
 );
-// directory path:
+
+
+// middle ware
+app.use(bodyParser.json());
+// directory path: middleware
+app.use(cors({
+    origin: 'http://localhost:4200'
+}))
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(__dirname+ '/client/dist/client'));
 app.use('/authentication', authentication);
