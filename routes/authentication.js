@@ -134,6 +134,5 @@ res.json({success: false, message: "invalid token: " + err})
             }
         });
     })
-
     return router;
 }
