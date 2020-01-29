@@ -9,22 +9,22 @@
       <li class="nav-item">
         <a routerLink="/Home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link" >Home<span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="authService.loggedIn()" class="nav-item">
         <a routerLink="/Dashboard" class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Dashboard</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="authService.loggedIn()" class="nav-item">
         <a class="nav-link" routerLink="/Profile">Profile</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="authService.loggedIn()" class="nav-item">
         <a class="nav-link"  routerLink="/Blog">Blog</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="!authService.loggedIn()" class="nav-item">
         <a class="nav-link"  routerLink="/Login">Login</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link"  routerLink="/Logout">Logout</a>
+      <li *ngIf="authService.loggedIn()" class="nav-item">
+        <a class="nav-link" (click) = "onLogoutClick()" routerLink="/Logout">Logout</a>
       </li>
-      <li   class="nav-item">
+      <li *ngIf="!authService.loggedIn()"  class="nav-item">
         <a [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-link"  routerLink="/Register">Register</a>
       </li>
     </ul>

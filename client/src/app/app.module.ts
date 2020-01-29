@@ -11,7 +11,13 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { LoginComponent } from './component/login/login.component';
 import { AuthService } from './service/auth.service';
 import {HttpClientModule} from "@angular/common/http";
+import { ProfileComponent } from './component/profile/profile.component';
+import { NgFlashMessagesModule } from 'ng-flash-messages';
+import { JwtModule } from "@auth0/angular-jwt";
 
+export function tokenGetter() {
+  return localStorage.getItem("token");
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,14 +26,21 @@ import {HttpClientModule} from "@angular/common/http";
     DashboardComponent,
     RegisterComponent,
     LoginComponent,
-
+    ProfileComponent,
 
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    JwtModule.forRoot({
+      config:{
+        tokenGetter: tokenGetter
+      }
+    }),
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgFlashMessagesModule.forRoot()
+
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

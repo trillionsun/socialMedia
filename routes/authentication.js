@@ -34,7 +34,6 @@ module.exports = (router)=> {
                     res.json({success: true, message:'new user registered successfully'});
                 }
                 }
-
             )
         }
     });
@@ -55,7 +54,6 @@ module.exports = (router)=> {
                 }
             })
         }
-
     })
 
     router.post('/login', (req,res)=>{
@@ -67,7 +65,7 @@ module.exports = (router)=> {
             }else{
                 User.findOne({username: req.body.username.toLowerCase()}, (err, user)=>{
                     if(err){
-                        res.json({success: false, message:'Username not found!'});
+                        res.json({success: false, message:err});
                     } else{
                         if(!user){
                             res.json({success: false, message: "Username not found"});
@@ -76,7 +74,7 @@ module.exports = (router)=> {
                             if(!validPassword){
                                 res.json({success: false, message: "password invalid"});
                             }else{
-                             const token=   jwt.sign({userId: user._id}, config.secret, {exptresIn: '24h'});
+                             const token=   jwt.sign({userId: user._id}, config.secret, {expiresIn: '24h'});
                                 res.json({success: true, token: token, user:{username: user.username}, message: "login success!"});
                             }
                         }
@@ -86,7 +84,6 @@ module.exports = (router)=> {
             }
         }
     })
-
 
     router.get('/checkEmail/:email', (req,res)=>{
         if(!req.params.email){
@@ -105,6 +102,37 @@ module.exports = (router)=> {
 
             })
         }
+    })
+
+    // any authorization required operations after this middle ware
+    router.use((req,res, next)=>{
+       const token =  req.headers['authorization'];
+       if(!token){
+           res.json({success: false, message: "no token provided"});
+       }else{
+           jwt.verify(token,config.secret,(err, decoded)=>{
+               if(err){
+res.json({success: false, message: "invalid token: " + err})
+               }else{
+                   req.decoded = decoded;
+               }
+           })
+       }
+       next();
+    });
+
+    router.get('/profile', (req,res)=>{
+        User.findOne({_id: req.decoded.userId}).select('username email').exec((err,user)=>{
+            if(err){
+                res.json({success: false, message:err});
+            }else{
+                if(!user){
+                    res.json({success: false, message:"user not found"});
+                }else{
+                    res.json({success: true, user: user});
+                }
+            }
+        });
     })
 
     return router;
