@@ -7,8 +7,9 @@
       <h1>MEAN Stack Application</h1>
       <p class="lead">Welcome to the a MEAN Stack Blog Application by <strong>Trillion</strong></p>
       <div>
-        <a routerLink="/Register" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"  class="btn btn-primary">Register</a>
-        <a routerLink="/Login" class="btn btn-default">Login</a>
+        <a *ngIf="!authService.loggedIn()" routerLink="/Register" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"  class="btn btn-primary">Register</a>
+        <a *ngIf="!authService.loggedIn()" routerLink="/Login" class="btn btn-default">Login</a>
+        <p> Welcome back !</p>
       </div>
     </div>
     <div class="container">

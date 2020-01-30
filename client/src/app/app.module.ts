@@ -14,6 +14,8 @@ import {HttpClientModule} from "@angular/common/http";
 import { ProfileComponent } from './component/profile/profile.component';
 import { NgFlashMessagesModule } from 'ng-flash-messages';
 import { JwtModule } from "@auth0/angular-jwt";
+import { AuthGuard } from "./guards/auth.guard";
+import { NotAuthGuard } from "./guards/notAuth.guard";
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -42,7 +44,7 @@ export function tokenGetter() {
     NgFlashMessagesModule.forRoot()
 
   ],
-  providers: [AuthService],
+  providers: [AuthService, AuthGuard, NotAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
